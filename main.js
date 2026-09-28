@@ -55,9 +55,12 @@ function renderGallery() {
     const title = document.createElement('h4'); title.textContent = label;
     const video = document.createElement('video'); video.controls = true; video.playsInline = true;
     video.preload = 'none'; video.poster = `assets/rollouts/${task}-${slug}.jpg`;
-    video.setAttribute('aria-label', `${gallerySelect.selectedOptions[0].textContent} ${label} evaluation clip`);
+    video.setAttribute('aria-label', `${gallerySelect.selectedOptions[0].textContent} ${label} evaluation clip, 20× speed`);
     const source = document.createElement('source'); source.src = `assets/rollouts/${task}-${slug}.mp4`; source.type = 'video/mp4';
-    video.append(source); card.append(title, video); gallery.append(card);
+    const player = document.createElement('div'); player.style.position = 'relative';
+    const speed = document.createElement('span'); speed.textContent = '20× speed';
+    speed.style.cssText = 'position:absolute;top:12px;right:12px;padding:5px 9px;border-radius:6px;background:rgba(0,0,0,.72);color:#fff;font-size:13px;font-weight:700;line-height:1.4;pointer-events:none;z-index:1';
+    video.append(source); player.append(video, speed); card.append(title, player); gallery.append(card);
   });
 }
 gallerySelect.addEventListener('change', renderGallery); renderGallery();
