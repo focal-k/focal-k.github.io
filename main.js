@@ -12,10 +12,10 @@ const sim = {
   'Place Dual Shoes': [[34.7,9.3],[17.3,0.0],[36.0,17.3]]
 };
 const real = {
-  'Task average': [[56.7,33.3],[33.3,31.6],[60.0,68.3]],
-  'Handover Block': [[60,20],[20,20],[60,70]],
-  'Place Can Basket': [[60,50],[80,75],[70,85]],
-  'Mug Cheers': [[50,10],[0,0],[50,50]]
+  'Task average': [[33.3,31.6],[56.7,33.3],[60.0,68.3]],
+  'Handover Block': [[20,20],[60,20],[60,70]],
+  'Place Can Basket': [[80,75],[60,50],[70,85]],
+  'Mug Cheers': [[0,0],[50,10],[50,50]]
 };
 const methods = ['π₀.₅', 'Bimanual DP3', 'FOCAL-K'];
 function setupResults(prefix, data) {
