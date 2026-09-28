@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="FOCAL-K: Interaction-Focused Bimanual Diffusion with Object-Centric State and Keyframe Transition Retrieval.">
+  <meta name="theme-color" content="#f6f5f0">
+  <title>FOCAL-K · Bimanual Manipulation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script defer src="main.js"></script>
+</head>
+<body>
+  <nav class="topbar" aria-label="Section navigation">
+    <a class="brand" href="#top">FOCAL<span>·</span>K</a>
+    <div class="navlinks"><a href="#overview">Overview</a><a href="#method">Method</a><a href="#simulation">Simulation</a><a href="#real-world">Real world</a></div>
+  </nav>
+  <main id="top">
+    <header class="hero narrow">
+      <p class="kicker">Bimanual robot learning · Anonymous project page</p>
+      <h1><span class="wordmark">FOCAL-K</span><span class="subtitle">Interaction-Focused Bimanual Diffusion with Object-Centric State and Keyframe Transition Retrieval</span></h1>
+      <p class="authors">Anonymous Authors</p>
+      <div class="hero-links"><a class="pill primary" href="assets/FOCAL_K.pdf" target="_blank" rel="noopener">↗ Paper (PDF)</a><a class="pill" href="#overview">▶ Video</a><span class="pill inactive" aria-label="Code coming soon">⌘ Code · coming soon</span></div>
+    </header>
+
+    <section id="overview" class="wide first-section">
+      <div class="section-label"><span>01 / OVERVIEW</span><span>3-minute project video</span></div>
+      <div class="video-shell" id="overview-video">
+        <button class="video-poster" type="button" aria-label="Play FOCAL-K overview video">
+          <img src="assets/video-poster.jpg" alt="FOCAL-K bimanual manipulation overview" width="1280" height="720">
+          <span class="play" aria-hidden="true">▶</span>
+        </button>
+      </div>
+      <p class="caption">Overview of interaction-focused perception, keyframe transition retrieval, reciprocal cross-arm conditioning, and results in simulation and on ALOHA. Captions are included in the video.</p>
+    </section>
+
+    <section id="abstract" class="narrow content-section">
+      <p class="eyebrow">Abstract</p>
+      <h2>Focus on the interaction. Retrieve what comes next. Coordinate both arms.</h2>
+      <p>Bimanual manipulation requires reasoning over task-relevant geometry and task progression while coordinating two arms under evolving scene conditions. 3D diffusion policies provide a strong framework for imitation-based manipulation, yet point clouds can leave task-relevant structure implicit, keyframe-based task progression often relies on manual annotation, and dual-arm control introduces synchronization and role-assignment challenges.</p>
+      <p>We introduce <strong>FOCAL-K</strong>, an interaction-focused 3D diffusion policy that addresses these challenges through object-grounded interaction geometry and explicit object state, automatically selected keyframes retrieved by robot–object state to provide transition context beyond demonstrated configurations, and reciprocal cross-arm conditioning throughout diffusion denoising. Together, these components provide structured spatial and transition context while reinforcing inter-arm coordination within continuous action generation.</p>
+      <p>Across ten RoboTwin 2.0 tasks, FOCAL-K achieves <strong>69.0% / 24.5%</strong> average success under Clean / Randomized conditions, compared with <strong>50.3% / 3.1%</strong> for Bimanual DP3 and <strong>59.0% / 19.1%</strong> for π<sub>0.5</sub>; across three real-world ALOHA tasks, it achieves <strong>60.0% / 68.3%</strong>, outperforming both baselines under both settings.</p>
+    </section>
+
+    <section class="wide visual-section" aria-labelledby="teaser-title">
+      <div class="section-label"><span>THE IDEA</span><span>Perception · retrieval · coordination</span></div>
+      <h2 id="teaser-title" class="section-title">From task objects to coordinated action</h2>
+      <figure class="figure-card"><img src="assets/teaser.png" alt="Mug Cheers task showing interaction-focused cropping, keyframe retrieval with successor states, cross-arm conditioning, and a robot rollout" loading="lazy"><figcaption>FOCAL-K on Mug Cheers. The policy extracts interaction geometry, retrieves demonstrated transitions, and coordinates two arms through reciprocal conditioning.</figcaption></figure>
+    </section>
+
+    <section id="method" class="wide content-section">
+      <div class="section-label"><span>02 / METHOD</span><span>Three connected components</span></div>
+      <div class="section-intro narrow"><h2>Structured context for both arms</h2><p>Multi-view observations identify the objects that matter. Retrieved keyframe transitions add task progression. A shared diffusion policy uses both signals to predict coordinated action chunks.</p></div>
+      <figure class="figure-card"><img src="assets/method.png" alt="FOCAL-K architecture showing structured multi-view observation, keyframe database retrieval, and bimanual coordination diffusion" loading="lazy"><figcaption>FOCAL-K method overview, adapted directly from the submitted paper figure.</figcaption></figure>
+      <div class="steps">
+        <article class="step green"><span class="number">01</span><h3>Interaction-focused observation</h3><p>Language-grounded object selection and multi-view tracking yield task-relevant point clouds. Explicit object centroids and visibility complement robot state and object–gripper geometry.</p></article>
+        <article class="step gold"><span class="number">02</span><h3>Keyframe transition retrieval</h3><p>An automatically built database selects salient states from demonstrations. The current robot–object state retrieves top-K keyframes and their successors as transition context.</p></article>
+        <article class="step purple"><span class="number">03</span><h3>Bimanual coordination diffusion</h3><p>During denoising, each arm’s intermediate action prediction conditions the other, refining coordinated trajectories under changing roles and contact states.</p></article>
+      </div>
+      <div class="perception-strip"><div><p class="eyebrow">Perception in motion</p><h3>Tracking object state across views</h3><p>A visualization from the project presentation compares estimated object centroids with ground truth during a real-world sequence.</p></div><video controls muted loop playsinline preload="none" poster="assets/centroid-tracking.jpg" aria-label="Estimated and ground-truth object centroid tracking"><source src="assets/centroid-tracking.mp4" type="video/mp4"></video></div>
+    </section>
+
+    <section id="simulation" class="wide content-section">
+      <div class="section-label"><span>03 / SIMULATION</span><span>RoboTwin 2.0 · ten tasks</span></div>
+      <div class="section-intro narrow"><h2>Success across scene variation</h2><p>Task-average success over ten RoboTwin 2.0 bimanual tasks. All policies are trained on Clean demonstrations; each run is evaluated on the same 50 episodes per condition, averaged across three training seeds.</p></div>
+      <div class="summary-grid"><div class="summary"><small>Clean · FOCAL-K</small><strong>69.0<span>%</span></strong><p>+18.7 points over Bimanual DP3</p></div><div class="summary"><small>Randomized · FOCAL-K</small><strong>24.5<span>%</span></strong><p>+21.4 points over Bimanual DP3</p></div><div class="summary"><small>Evaluation</small><strong>10 <span>tasks</span></strong><p>Clean and Randomized conditions</p></div></div>
+      <div class="results-card"><div class="result-head"><div><h3>Compare task success</h3><p>Select a task and condition to inspect the reported result.</p></div><div class="switches"><label for="sim-task">Task <select id="sim-task"></select></label><div class="segmented" role="group" aria-label="Simulation condition"><button type="button" class="active" data-sim-condition="clean">Clean</button><button type="button" data-sim-condition="randomized">Randomized</button></div></div></div><div id="sim-bars" class="bars" aria-live="polite"></div><p class="footnote">Source: Table I in the paper. Success rate (%).</p></div>
+      <div class="placeholder"><div><span class="eyebrow">Rollout gallery</span><h3>Simulation comparisons</h3><p>Space is reserved for matched FOCAL-K and baseline episodes. Add task videos in <code>assets/rollouts/</code> and replace this panel when clips are ready.</p></div><span class="placeholder-mark" aria-hidden="true">↗</span></div>
+    </section>
+
+    <section id="real-world" class="wide content-section">
+      <div class="section-label"><span>04 / REAL WORLD</span><span>Trossen ALOHA · three tasks</span></div>
+      <div class="section-intro narrow"><h2>From simulation to physical manipulation</h2><p>Handover Block probes inter-arm transfer, Place Can Basket tests asymmetric multi-stage manipulation, and Mug Cheers requires precise dual-handle grasps and controlled in-air contact.</p></div>
+      <div class="task-grid"><article><span>01 / TRANSFER</span><h3>Handover Block</h3><p>Pass an object between arms, then place it at the target.</p></article><article><span>02 / ASYMMETRY</span><h3>Place Can Basket</h3><p>One arm places the can; the other grasps and lifts the basket.</p></article><article><span>03 / CONTACT</span><h3>Mug Cheers</h3><p>Grasp thin handles, lift both mugs, and align them in the air.</p></article></div>
+      <div class="results-card"><div class="result-head"><div><h3>Real-world task success</h3><p>Reported success under Clean and Randomized evaluation.</p></div><div class="switches"><label for="real-task">Task <select id="real-task"></select></label><div class="segmented" role="group" aria-label="Real-world condition"><button type="button" class="active" data-real-condition="clean">Clean</button><button type="button" data-real-condition="randomized">Randomized</button></div></div></div><div id="real-bars" class="bars" aria-live="polite"></div><p class="footnote">Source: Table VII in the paper. Each evaluation round has 10 Clean and 10 Randomized trials; values are averaged across repeated rounds.</p></div>
+      <div class="rollout-section"><div class="result-head"><div><p class="eyebrow">Selected evaluation clips</p><h3>Compare robot behavior</h3><p>Short excerpts from the project presentation. Select a task to view each policy.</p></div><label class="gallery-picker" for="gallery-task">Task <select id="gallery-task"><option value="handover">Handover Block</option><option value="can-basket">Place Can Basket</option><option value="mug-cheers">Mug Cheers</option></select></label></div><div id="real-gallery" class="gallery-grid" aria-live="polite"></div></div>
+    </section>
+
+    <section class="narrow closing"><p class="eyebrow">FOCAL-K</p><h2>Interaction-focused perception, transition context, and coordinated action generation.</h2><div class="hero-links"><a class="pill primary" href="assets/FOCAL_K.pdf" target="_blank" rel="noopener">Read the paper ↗</a><a class="pill" href="#overview">Watch the video ↑</a></div></section>
+  </main>
+  <footer><span>FOCAL-K · Anonymous project page</span><span><a href="#top">Back to top ↑</a></span></footer>
+</body>
+</html>
