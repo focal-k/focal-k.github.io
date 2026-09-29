@@ -44,7 +44,39 @@ function setupResults(prefix, data) {
   render();
   return {select, render};
 }
-setupResults('sim', sim); const realResults = setupResults('real', real);
+const simResults = setupResults('sim', sim); const realResults = setupResults('real', real);
+const simulationSlugs = {
+  'Beat Block Hammer':'beat_block_hammer', 'Place Can Basket':'place_can_basket',
+  'Pick Dual Bottles':'pick_dual_bottles', 'Handover Block':'handover_block',
+  'Stack Bowls Two':'stack_bowls_two', 'Stack Blocks Two':'stack_blocks_two',
+  'Scan Object':'scan_object', 'Hanging Mug':'hanging_mugs',
+  'Place Bread Skillet':'place_bread_skillet', 'Place Dual Shoes':'place_dual_shoes'
+};
+const simulationPreviews = document.getElementById('sim-previews');
+function renderSimulationPreviews() {
+  const task = simResults.select.value;
+  const slug = simulationSlugs[task];
+  simulationPreviews.replaceChildren();
+  if (!slug) {
+    const note = document.createElement('p'); note.textContent = 'Select an individual task to view its Clean and Randomized frames.';
+    simulationPreviews.append(note); return;
+  }
+  const active = document.querySelector('[data-sim-condition].active')?.dataset.simCondition || 'clean';
+  for (const condition of ['clean','randomized']) {
+    const figure = document.createElement('figure');
+    figure.className = `simulation-preview ${condition === active ? 'active' : ''}`;
+    const image = document.createElement('img');
+    image.src = `assets/simulation/${slug}_${condition}.png`;
+    image.alt = `${task}, ${condition} rollout preview frame`;
+    image.loading = 'lazy'; image.width = 320; image.height = 240;
+    const caption = document.createElement('figcaption');
+    caption.textContent = condition === 'clean' ? 'Clean' : 'Randomized';
+    figure.append(image, caption); simulationPreviews.append(figure);
+  }
+}
+simResults.select.addEventListener('change', renderSimulationPreviews);
+document.querySelectorAll('[data-sim-condition]').forEach(button => button.addEventListener('click', renderSimulationPreviews));
+simResults.select.value = 'Beat Block Hammer'; simResults.render(); renderSimulationPreviews();
 const gallerySelect = document.getElementById('gallery-task');
 const gallery = document.getElementById('real-gallery');
 function renderGallery() {
