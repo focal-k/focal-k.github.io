@@ -9,8 +9,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=2">
-  <script defer src="main.js?v=4"></script>
+  <link rel="stylesheet" href="style.css?v=3">
+  <script defer src="main.js?v=5"></script>
 </head>
 <body>
   <nav class="topbar" aria-label="Section navigation">
@@ -67,7 +67,7 @@
       <div class="section-intro narrow"><h2>Success across scene variation</h2><p>Task-average success over ten RoboTwin 2.0 bimanual tasks. All policies are trained on Clean demonstrations; each run is evaluated on the same 50 episodes per condition, averaged across three training seeds.</p></div>
       <div class="summary-grid"><div class="summary"><small>Clean · FOCAL-K</small><strong>69.0<span>%</span></strong><p>+18.7 points over Bimanual DP3</p></div><div class="summary"><small>Randomized · FOCAL-K</small><strong>24.5<span>%</span></strong><p>+21.4 points over Bimanual DP3</p></div><div class="summary"><small>Evaluation</small><strong>10 <span>tasks</span></strong><p>Clean and Randomized conditions</p></div></div>
       <div class="results-card"><div class="result-head"><div><h3>Compare task success</h3><p>Select a task and condition to inspect the reported result.</p></div><div class="switches"><label for="sim-task">Task <select id="sim-task"></select></label><div class="segmented" role="group" aria-label="Simulation condition"><button type="button" class="active" data-sim-condition="clean">Clean</button><button type="button" data-sim-condition="randomized">Randomized</button></div></div></div><div id="sim-bars" class="bars" aria-live="polite"></div><p class="footnote">Source: Table I in the paper. Success rate (%).</p></div>
-      <div class="placeholder"><div><span class="eyebrow">Rollout gallery</span><h3>Simulation comparisons</h3><p>Space is reserved for matched FOCAL-K and baseline episodes. Add task videos in <code>assets/rollouts/</code> and replace this panel when clips are ready.</p></div><span class="placeholder-mark" aria-hidden="true">↗</span></div>
+      <div class="simulation-previews"><div class="result-head"><div><p class="eyebrow">Simulation rollouts</p><h3>Clean and Randomized views</h3><p>Choose a task above to see its matched rollout frames. The selected condition is highlighted.</p></div></div><div id="sim-previews" class="simulation-preview-grid" aria-live="polite"></div><p class="footnote">The supplied files contain one still frame each. Animated clips can replace these frames when available.</p></div>
     </section>
 
     <section id="real-world" class="wide content-section">
