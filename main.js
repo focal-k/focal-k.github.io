@@ -42,8 +42,9 @@ function setupResults(prefix, data) {
     buttons.forEach(b => b.classList.toggle('active', b === button)); render();
   }));
   render();
+  return {select, render};
 }
-setupResults('sim', sim); setupResults('real', real);
+setupResults('sim', sim); const realResults = setupResults('real', real);
 const gallerySelect = document.getElementById('gallery-task');
 const gallery = document.getElementById('real-gallery');
 function renderGallery() {
@@ -63,7 +64,20 @@ function renderGallery() {
     video.append(source); player.append(video, speed); card.append(title, player); gallery.append(card);
   });
 }
-gallerySelect.addEventListener('change', renderGallery); renderGallery();
+const galleryTasks = {'Handover Block':'handover', 'Place Can Basket':'can-basket', 'Mug Cheers':'mug-cheers'};
+gallerySelect.addEventListener('change', () => {
+  realResults.select.value = gallerySelect.selectedOptions[0].textContent;
+  realResults.render();
+  renderGallery();
+});
+realResults.select.addEventListener('change', () => {
+  const galleryTask = galleryTasks[realResults.select.value];
+  if (galleryTask && gallerySelect.value !== galleryTask) {
+    gallerySelect.value = galleryTask;
+    renderGallery();
+  }
+});
+realResults.select.value = 'Handover Block'; realResults.render(); renderGallery();
 const shell = document.getElementById('overview-video');
 shell.querySelector('button').addEventListener('click', () => {
   const video = document.createElement('video');
