@@ -8,7 +8,7 @@ This is a static GitHub Pages site. Place `index.html`, `style.css`, `main.js`, 
 
 - Edit `index.html` for text and sections. Keep authors anonymous during review.
 - Edit the reported task numbers in `main.js` if the manuscript results change.
-- The simulation gallery uses 20 still frames in `assets/simulation/`, one for each task and condition. The supplied `.gif` files contained PNG images with one frame, so replace these with animated exports and update the image paths in `main.js` when the clips are available. The real-world selector uses nine short policy clips in `assets/rollouts/`, extracted from the supplied presentation.
+- The simulation gallery uses 20 animated GIFs in `assets/simulation/`, one for each task and condition, preserved at original speed from the supplied ZIP. The real-world selector uses nine short policy clips in `assets/rollouts/`, extracted from the supplied presentation.
 - The centroid animation in `assets/centroid-tracking.mp4` was converted from the supplied presentation GIF for smaller web delivery.
 - Replace `assets/FOCAL_K.pdf` and `assets/focal-k-overview.mp4` with revised paper and video files when needed.
 

@@ -58,7 +58,7 @@ function renderSimulationPreviews() {
   const slug = simulationSlugs[task];
   simulationPreviews.replaceChildren();
   if (!slug) {
-    const note = document.createElement('p'); note.textContent = 'Select an individual task to view its Clean and Randomized frames.';
+    const note = document.createElement('p'); note.textContent = 'Select an individual task to view its Clean and Randomized animations.';
     simulationPreviews.append(note); return;
   }
   const active = document.querySelector('[data-sim-condition].active')?.dataset.simCondition || 'clean';
@@ -66,8 +66,8 @@ function renderSimulationPreviews() {
     const figure = document.createElement('figure');
     figure.className = `simulation-preview ${condition === active ? 'active' : ''}`;
     const image = document.createElement('img');
-    image.src = `assets/simulation/${slug}_${condition}.png`;
-    image.alt = `${task}, ${condition} rollout preview frame`;
+    image.src = `assets/simulation/${slug}_${condition}.gif`;
+    image.alt = `${task}, ${condition} simulation rollout`;
     image.loading = 'lazy'; image.width = 320; image.height = 240;
     const caption = document.createElement('figcaption');
     caption.textContent = condition === 'clean' ? 'Clean' : 'Randomized';
